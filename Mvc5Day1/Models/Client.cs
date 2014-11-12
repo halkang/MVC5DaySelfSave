@@ -11,6 +11,7 @@ namespace Mvc5Day1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Client
     {
@@ -20,6 +21,7 @@ namespace Mvc5Day1.Models
         }
     
         public int ClientId { get; set; }
+        [Required]
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }

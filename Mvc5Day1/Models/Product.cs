@@ -11,6 +11,7 @@ namespace Mvc5Day1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Product
     {
@@ -20,6 +21,7 @@ namespace Mvc5Day1.Models
         }
     
         public int ProductId { get; set; }
+        [Required]
         public string ProductName { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<bool> Active { get; set; }
