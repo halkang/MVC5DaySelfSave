@@ -14,10 +14,13 @@ namespace Mvc5Day1.Controllers
     {
         private FabricsEntities db = new FabricsEntities();
 
+        ProductRepository repo = RepositoryHelper.GetProductRepository();
+
         // GET: Products
         public ActionResult Index()
         {
-            return View(db.Product.Take(10).ToList());
+            //return View(db.Product.Take(10).ToList());
+            return View(repo.All().Take(10).ToList());
         }
 
         // GET: Products/Details/5
@@ -27,7 +30,8 @@ namespace Mvc5Day1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            //Product product = db.Product.Find(id);
+            Product product = repo.All().Where(p => p.ProductId == id).FirstOrDefault();
             if (product == null)
             {
                 return HttpNotFound();
@@ -50,8 +54,11 @@ namespace Mvc5Day1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Product.Add(product);
-                db.SaveChanges();
+                //db.Product.Add(product);
+                repo.Add(product);
+                //db.SaveChanges();
+                repo.UnitOfWork.Commit();
+
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +72,7 @@ namespace Mvc5Day1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            Product product = repo.Find(id.Value);
             if (product == null)
             {
                 return HttpNotFound();
@@ -78,12 +85,22 @@ namespace Mvc5Day1.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock,PMEmail")] Product product)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(product).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                //((FabricsEntities)repo.UnitOfWork.Context).Entry(product).State = EntityState.Modified;
+
+                var data = repo.Find(product.ProductId);
+
+                data.ProductName = product.ProductName;
+                data.PMEmail = product.PMEmail;
+
+                repo.UnitOfWork.Commit();
+
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -96,7 +113,7 @@ namespace Mvc5Day1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            Product product = repo.Find(id.Value);
             if (product == null)
             {
                 return HttpNotFound();
@@ -109,9 +126,13 @@ namespace Mvc5Day1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Product.Find(id);
-            db.Product.Remove(product);
-            db.SaveChanges();
+            Product product = repo.Find(id);
+            repo.Delete(product);
+            repo.UnitOfWork.Commit();
+
+            //db.Product.Remove(product);
+            //db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

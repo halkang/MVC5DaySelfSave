@@ -11,7 +11,6 @@ namespace Mvc5Day1.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Order
     {
@@ -21,12 +20,9 @@ namespace Mvc5Day1.Models
         }
     
         public int OrderId { get; set; }
-        [Required]
         public Nullable<int> ClientId { get; set; }
-        [Required]
         public Nullable<System.DateTime> OrderDate { get; set; }
         public Nullable<decimal> OrderTotal { get; set; }
-        [Required]
         public string OrderStatus { get; set; }
     
         public virtual Client Client { get; set; }

@@ -11,7 +11,6 @@ namespace Mvc5Day1.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Client
     {
@@ -21,7 +20,6 @@ namespace Mvc5Day1.Models
         }
     
         public int ClientId { get; set; }
-        [Required]
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -38,6 +36,7 @@ namespace Mvc5Day1.Models
         public Nullable<double> Longitude { get; set; }
         public Nullable<double> Latitude { get; set; }
         public string Notes { get; set; }
+        public System.DateTime CreatedOn { get; set; }
     
         public virtual Occupation Occupation { get; set; }
         public virtual ICollection<Order> Order { get; set; }
