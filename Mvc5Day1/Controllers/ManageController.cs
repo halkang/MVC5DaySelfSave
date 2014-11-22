@@ -11,7 +11,7 @@ using Mvc5Day1.Models;
 namespace Mvc5Day1.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : BaseController
     {
         public ManageController()
         {

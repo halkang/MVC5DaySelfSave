@@ -1,5 +1,4 @@
-﻿@using StackExchange.Profiling;
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -26,7 +25,6 @@
                     <li>@Html.ActionLink("首頁", "Index", "Home")</li>
                     <li>@Html.ActionLink("關於", "About", "Home")</li>
                     <li>@Html.ActionLink("連絡方式", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("客戶資料", "Index", "客戶資料")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -43,6 +41,5 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    @MiniProfiler.RenderIncludes()
 </body>
 </html>
