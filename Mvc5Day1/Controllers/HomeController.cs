@@ -1,4 +1,5 @@
-﻿using Mvc5Day1.Models;
+﻿using Mvc5Day1.ActionFilters;
+using Mvc5Day1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -156,6 +157,46 @@ namespace Mvc5Day1.Controllers
                 return Content("Name = " + data.name + " , Tel = " + data.tel + "(Required)");
             }
         }
+
+        [HandleError(ExceptionType = typeof(ArgumentException), View = "ErrorArgumentException")]
+        //[HandleError(ExceptionType = typeof(Exception), View = "Error")]
+        public ActionResult GetError(int? i)
+        {
+            if (i.HasValue && i == 1)
+            {
+                throw new ArgumentException("錯誤發生");
+            }
+            else
+            {
+                throw new Exception("General Error");
+            }
+
+            return View();
+        }
+
+        public ActionResult CustomFilter()
+        {
+            return View();
+        }
+
+        [ShareData]
+        public ActionResult CustomFilter2()
+        {
+            return View("CustomFilter");
+        }
+
+
+        public ActionResult Razor1()
+        {
+            ViewBag.IsEnabled = true;
+
+
+            ViewBag.Array = new int[] { 1, 2, 3, 4, 5 };
+
+
+            return PartialView();
+        }
+
     }
 
 

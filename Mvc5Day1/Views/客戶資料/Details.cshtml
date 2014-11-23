@@ -63,18 +63,37 @@
 
 <hr />
 
-<div>
+
+@*@Html.Action("Index", "客戶聯絡人", new { id = Model.Id })*@
+
+@*@Html.ActionLink("AAA", "Index", "客戶聯絡人", null, new { @class = "btn" })*@
+
+@Html.Partial("Partials/客戶詳細資料_客戶聯絡人", Model.客戶聯絡人)
+
+
+@*<div>
     @{
         var Contacts = (List<Mvc5Day1.Models.客戶聯絡人>)ViewBag.Contacts;
     }
 
+    <table class="table">
+        <tr>
+            <th>姓名</th>
+            <th>電話</th>
+            <th>職稱</th>
+        </tr>
     @foreach (var item in Contacts)
     {
-        
+        <tr>
+            <td>@item.姓名</td>
+            <td>@item.電話</td>
+            <td>@item.職稱</td>
+        </tr>
     }
+        </table>
 
 
-</div>
+</div>*@
 
 
 <p>

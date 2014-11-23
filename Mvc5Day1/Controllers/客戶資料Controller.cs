@@ -65,7 +65,7 @@ namespace Mvc5Day1.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Contacts = 客戶資料.客戶聯絡人.ToList();
+            //ViewBag.Contacts = 客戶資料.客戶聯絡人.ToList();
 
             return View(客戶資料);
         }
