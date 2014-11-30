@@ -253,6 +253,7 @@
     <Compile Include="Models\sysdiagrams.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\YesNoAttribute.cs" />
     <Compile Include="Models\sysdiagramsRepository.cs">
       <DependentUpon>IRepository.EF6.tt</DependentUpon>
     </Compile>
@@ -506,6 +507,17 @@
     <Content Include="Views\Client2\Details.cshtml" />
     <Content Include="Views\Client2\Edit.cshtml" />
     <Content Include="Views\Client2\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\客戶資料.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\客戶資料.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\客戶聯絡人列表.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\電話號碼.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\地址withGoogleMaps.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Client\Create.cshtml" />
+    <Content Include="Views\Client\Delete.cshtml" />
+    <Content Include="Views\Client\Details.cshtml" />
+    <Content Include="Views\Client\Edit.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

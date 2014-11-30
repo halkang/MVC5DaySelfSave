@@ -27,12 +27,17 @@ namespace Mvc5Day1.Models
         [StringLength(250, ErrorMessage="欄位長度不得大於 250 個字元")]
         [Required]
         public string Email { get; set; }
-        
-        [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
+
+        [UIHint("電話號碼")]
+        [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
         public string 手機 { get; set; }
         
+        [UIHint("電話號碼")]
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         public string 電話 { get; set; }
+
+        [DataType(DataType.Date)]
+        public string 生日 { get; set; }
     
         public virtual 客戶資料 客戶資料 { get; set; }
     }
