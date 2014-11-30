@@ -29,6 +29,7 @@ namespace Mvc5Day1.Models
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         public string 傳真 { get; set; }
         
+        [UIHint("地址withGoogleMaps")]
         [StringLength(100, ErrorMessage="欄位長度不得大於 100 個字元")]
         public string 地址 { get; set; }
         

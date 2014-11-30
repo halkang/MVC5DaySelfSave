@@ -14,15 +14,20 @@ namespace Mvc5Day1.Controllers
         {
             return View();
         }
-#if DEBUG
-        [NonAction]
-#endif
+//#if DEBUG
+//        [NonAction]
+//#endif
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             //return new ViewResult() { ViewName = "About" };
             return View();
+        }
+
+        public ActionResult GetTime()
+        {
+            return Content(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fffff"));
         }
 
         public ActionResult Contact()

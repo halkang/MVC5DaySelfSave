@@ -1,0 +1,19 @@
+﻿@model DateTime?
+
+@{
+    string dt;
+
+    if (Model.HasValue)
+    {
+        dt = Model.Value.ToString("yyyy-MM-dd");
+    }
+    else
+    {
+        dt = "";
+    }
+}
+
+<input class="form-control text-box single-line" data-val="true" 
+       data-val-date="欄位 生日 必須是日期。" 
+       name="@Html.Name("")" type="date" value="@dt" />
+
