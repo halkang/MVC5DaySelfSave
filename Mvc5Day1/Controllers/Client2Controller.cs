@@ -7,58 +7,31 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Mvc5Day1.Models;
-using Omu.ValueInjecter;
 using PagedList;
+using System.Web.UI;
 
 namespace Mvc5Day1.Controllers
 {
-    public class 客戶資料Controller : BaseController
+    public class Client2Controller : Controller
     {
         private 客戶資料Entities db = new 客戶資料Entities();
 
-        // GET: 客戶資料
+        //[OutputCache(Duration=180, VaryByParam="PageNo", Location=OutputCacheLocation.Any)]
+        // GET: Client2
         public ActionResult Index(int PageNo = 1)
         {
-            ViewBag.Test = "測試OK';\r\nalert('ok');";
+            var repoClient = RepositoryHelper.Get客戶資料Repository();
 
-            var data = db.客戶資料.OrderBy(p => p.Id);
+            var repoContact = RepositoryHelper.Get客戶聯絡人Repository(repoClient.UnitOfWork);
 
-            ViewData.Model = data.ToPagedList(PageNo, 2);
 
+
+			var data = db.客戶資料.OrderBy(p => p.Id);
+			ViewData.Model = data.ToPagedList(PageNo, 2);
             return View();
         }
 
-        public ActionResult BatchUpdate(IList<客戶資料BatchUpdateVM> data)
-        {
-            if (ModelState.IsValid)
-            {
-                foreach (var item in data)
-                {
-                    db.客戶資料.FirstOrDefault(p => p.Id == item.Id).統一編號 = item.統一編號;
-                }
-                db.SaveChanges();
-            }
-
-            return Json(data);
-        }
-
-        public ActionResult BatchUpdate2(FormCollection form)
-        {
-            var data = new List<客戶資料BatchUpdateVM>();
-
-            if (TryUpdateModel<List<客戶資料BatchUpdateVM>>(data))
-            {
-                foreach (var item in data)
-                {
-                    db.客戶資料.FirstOrDefault(p => p.Id == item.Id).統一編號 = item.統一編號;
-                }
-                db.SaveChanges();
-            }
-
-            return Json(data);
-        }
-
-        // GET: 客戶資料/Details/5
+        // GET: Client2/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -70,19 +43,16 @@ namespace Mvc5Day1.Controllers
             {
                 return HttpNotFound();
             }
-
-            //ViewBag.Contacts = 客戶資料.客戶聯絡人.ToList();
-
             return View(客戶資料);
         }
 
-        // GET: 客戶資料/Create
+        // GET: Client2/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: 客戶資料/Create
+        // POST: Client2/Create
         // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
@@ -99,7 +69,7 @@ namespace Mvc5Day1.Controllers
             return View(客戶資料);
         }
 
-        // GET: 客戶資料/Edit/5
+        // GET: Client2/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -114,24 +84,23 @@ namespace Mvc5Day1.Controllers
             return View(客戶資料);
         }
 
-        // POST: 客戶資料/Edit/5
+        // POST: Client2/Edit/5
         // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection form)
+        public ActionResult Edit([Bind(Include = "Id,客戶名稱,統一編號,電話,傳真,地址,Email")] 客戶資料 客戶資料)
         {
-            var data = db.客戶資料.Find(id);
-
-            if (TryUpdateModel<I客戶資料Edit>(data))
+            if (ModelState.IsValid)
             {
+                db.Entry(客戶資料).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(data);
+            return View(客戶資料);
         }
 
-        // GET: 客戶資料/Delete/5
+        // GET: Client2/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -146,19 +115,15 @@ namespace Mvc5Day1.Controllers
             return View(客戶資料);
         }
 
-        // POST: 客戶資料/Delete/5
+        // POST: Client2/Delete/5
         [HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             客戶資料 客戶資料 = db.客戶資料.Find(id);
             db.客戶資料.Remove(客戶資料);
             db.SaveChanges();
-
-            var data = db.客戶資料;
-            return PartialView("Index", data.ToList());
-
-            //return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
